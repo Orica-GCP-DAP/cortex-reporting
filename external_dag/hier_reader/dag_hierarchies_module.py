@@ -23,6 +23,7 @@ def generate_hier(**kwargs):
     src_dataset = kwargs["src_dataset"]
     mandt = kwargs["mandt"]
     setname = kwargs["setname"]
+    setname_head = kwargs["setname"]  # added by @naitikgada to add setname in the hierarchy tables
     setclass = kwargs["setclass"]
     orgunit = kwargs["orgunit"]
     table = kwargs["table"]
@@ -33,7 +34,7 @@ def generate_hier(**kwargs):
     nodes = []
     nodes = get_nodes(src_dataset, mandt, setname, 
                         setclass, orgunit, table,
-                        select_key, where_clause, full_table)
+                        select_key, where_clause, full_table,setname_head)
 
     if not nodes:
         print("Dataset {setname}  not found in SETNODES".format(setname=setname))
@@ -58,7 +59,7 @@ def insert_rows(full_table, nodes):
         print("Encountered errors while inserting rows: {}".format(errors))
 
 def get_nodes(src_dataset, mandt, setname, setclass, org_unit, 
-              table, select_key, where_clause, full_table):
+              table, select_key, where_clause, full_table,setname_head):
     sets_tables = []
     query = """SELECT  setname, setclass, subclass, lineid, subsetcls, subsetscls, subsetname
              FROM  `{src_dataset}.setnode`
@@ -75,7 +76,7 @@ def get_nodes(src_dataset, mandt, setname, setclass, org_unit,
     for setr in query_job:
         sets_tables = []
         nodes = get_leafs_children(src_dataset, mandt, setr, table, select_key,
-                                   where_clause, full_table)
+                                   where_clause, full_table,setname_head)
         print(nodes)
         sets_tables.append(nodes)
         insert_rows(full_table, sets_tables)
@@ -84,7 +85,7 @@ def get_nodes(src_dataset, mandt, setname, setclass, org_unit,
 
 
 def get_leafs_children(src_dataset, mandt, row, table, field, where_clause,
-                       full_table):
+                       full_table,setname_head):
     node_dict = dict()
     # TODO: would be nice to implement multithreaded calls
 
@@ -137,6 +138,7 @@ def get_leafs_children(src_dataset, mandt, row, table, field, where_clause,
         for line in ranges:
             node_dict = {
                 "mandt": mandt,
+                "setname": setname_head,
                 "parent": row['setname'],
                 "parent_org": row['subclass'],
                 "child": row['subsetname'],
@@ -145,5 +147,5 @@ def get_leafs_children(src_dataset, mandt, row, table, field, where_clause,
             }
     # Recursive call for child dataset
     get_nodes(src_dataset, mandt, row['subsetname'], row['subsetcls'],
-              row['subsetscls'], table, field, where_clause, full_table)
+              row['subsetscls'], table, field, where_clause, full_table,setname_head)
     return node_dict  # This may only have a parent/child

@@ -16,25 +16,52 @@ sets_data:
 #Cost Centers: 
 # table: csks, select_fields (cost center): 'kostl', where clause: Controling Area (kokrs), Valid to (datbi)
 #- setname: 'H1' 
-- setname: 'H1010' 
+- setname: 'GLC0' 
   setclass: '0101'
-  orgunit: '1000'
-  mandt:  '800'
+  orgunit: 'GLB0'
+  mandt:  '010'
   table: 'csks'
   key_field: 'kostl'
-  where_clause: [ kokrs = '1000', datbi >= cast('9999-12-31' as date)]
+  where_clause: [ kokrs = 'GLB0', datbi >= cast('9999-12-31' as date)]
+  load_frequency: "@daily"
+
+- setname: 'GLF0' 
+  setclass: '0101'
+  orgunit: 'GLB0'
+  mandt:  '010'
+  table: 'csks'
+  key_field: 'kostl'
+  where_clause: [ kokrs = 'GLB0', datbi >= cast('9999-12-31' as date)]
   load_frequency: "@daily"
 #Profit Centers: 
 # setclass: 0106, table: cepc, select_fields (profit center): 'cepc', where clause: Controling Area (kokrs), Valid to (datbi)
 #- setname: 'HE' 
-- setname: 'H_TECH15' 
+- setname: 'GLP0' 
   setclass: '0106'
-  orgunit: '1000'
-  mandt:  '800'
+  orgunit: 'GLB0'
+  mandt:  '010'
   table: 'cepc'
   key_field: 'prctr'
-  where_clause: [ kokrs = '1000', datbi >= cast('9999-12-31' as date) ]  
+  where_clause: [ kokrs = 'GLB0', datbi >= cast('9999-12-31' as date) ]  
   load_frequency: "@monthly"
+
+- setname: 'GLP1' 
+  setclass: '0106'
+  orgunit: 'GLB0'
+  mandt:  '010'
+  table: 'cepc'
+  key_field: 'prctr'
+  where_clause: [ kokrs = 'GLB0', datbi >= cast('9999-12-31' as date) ]  
+  load_frequency: "@monthly"
+
+- setname: 'GLP2' 
+  setclass: '0106'
+  orgunit: 'GLB0'
+  mandt:  '010'
+  table: 'cepc'
+  key_field: 'prctr'
+  where_clause: [ kokrs = 'GLB0', datbi >= cast('9999-12-31' as date) ]  
+  load_frequency: "@monthly"  
 
 #G/L Accounts:
 # table: ska1, select_fields (GL Account): 'saknr', where clause: Chart of Accounts (KTOPL), set will be manual. May also need to poll Finanscial Statement versions.

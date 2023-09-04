@@ -54,6 +54,7 @@ def check_create_hiertable(full_table, field):
     except NotFound:
         schema = [
             bigquery.SchemaField('mandt', 'STRING', mode='REQUIRED'),
+            bigquery.SchemaField('setname','STRING',mode='REQUIRED'),  #added by @naitikgada for orica to include setname in the schema
             bigquery.SchemaField('parent', 'STRING', mode='REQUIRED'),
             bigquery.SchemaField('parent_org', 'STRING', mode='NULLABLE'),
             bigquery.SchemaField('child', 'STRING', mode='NULLABLE'),

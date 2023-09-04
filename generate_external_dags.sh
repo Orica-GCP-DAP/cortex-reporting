@@ -1,7 +1,7 @@
 #!/bin/bash
 
-EXTERNAL_DAGS=("currency_conversion" "prod_hierarchy_texts" "inventory_snapshots")
-REPORTING_DAGS=("currency_conversion" "prod_hierarchy_texts" "inventory_snapshots")
+EXTERNAL_DAGS=("currency_conversion" "inventory_snapshots")
+REPORTING_DAGS=("currency_conversion" "inventory_snapshots")
 
 #--------------------
 # Help Message

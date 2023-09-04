@@ -1,24 +1,29 @@
-# This settings file drives how the BQ objects (tables/views/functions) for
-# Reporting datasets are created.
-#
-# There are two sections:
-#
-#  1. "bq_independent_objects":
-#     All BiqQuery objects that can be created in independentally, without any
-#     other depedencies.
-#     NOTE: When "turbo_mode" is enabled, these BQ objects are created in
-#           parallel.
-#
-#  2. "bq_dependent_objects":
-#      All BiqQuery objects that need to be created in a specific order due to
-#      depedencies.
-#      NOTE: "turbo_mode" does not apply to this section - i.e. each object
-#             will be created one after another.
-#
-#  At least one of the two sections need to be present.
+# # This settings file drives how the BQ objects (tables/views/functions) for
+# # Reporting datasets are created.
+# #
+# # There are two sections:
+# #
+# #  1. "bq_independent_objects":
+# #     All BiqQuery objects that can be created in independentally, without any
+# #     other depedencies.
+# #     NOTE: When "turbo_mode" is enabled, these BQ objects are created in
+# #           parallel.
+# #
+# #  2. "bq_dependent_objects":
+# #      All BiqQuery objects that need to be created in a specific order due to
+# #      depedencies.
+# #      NOTE: "turbo_mode" does not apply to this section - i.e. each object
+# #             will be created one after another.
+# #
+# #  At least one of the two sections need to be present.
 
-# The following files will be deployed in parallel
+# # The following files will be deployed in parallel
 bq_independent_objects:
+
+
+
+  - sql_file: ProfitCentersMD.sql
+    type: view
 
   - sql_file: NetDueDateCalc.sql
     type: script
@@ -44,10 +49,10 @@ bq_independent_objects:
   - sql_file: currency_conversion.sql
     type: script
 
-  - sql_file: AddressesMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+#  - sql_file: AddressesMD.sql
+#    type: table
+#    table_setting:
+#      load_frequency: "@daily"
 
   - sql_file: PlantsMD.sql
     type: table
@@ -59,90 +64,92 @@ bq_independent_objects:
     table_setting:
       load_frequency: "@monthly"
 
-  - sql_file: GLAccountsMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+# Not in looker but exists in Reporting Tables 
+#  - sql_file: GLAccountsMD.sql
+#    type: table
+#    table_setting:
+#      load_frequency: "@yearly"
 
   - sql_file: VendorsMD.sql
     type: table
     table_setting:
       load_frequency: "@daily"
 
-  - sql_file: LedgersMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+# Not in looker but exists in Reporting Tables 
+  # - sql_file: LedgersMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: DistributionChannelsMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@monthly"
+  # - sql_file: DistributionChannelsMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@monthly"
 
   - sql_file: CompaniesMD.sql
     type: table
     table_setting:
       load_frequency: "@yearly"
 
-  - sql_file: DeliveryBlockingReasonsMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: DeliveryBlockingReasonsMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: BillingBlockingReasonsMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: BillingBlockingReasonsMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: ProductHierarchy_Flatten.sql
-    type: view
+  # - sql_file: ProductHierarchy_Flatten.sql
+  #   type: view
 
-  - sql_file: TelephoneCodes_T005K.sql
-    type: view
+  # - sql_file: TelephoneCodes_T005K.sql
+  #   type: view
 
   - sql_file: CostCentersMD.sql
     type: table
     table_setting:
       load_frequency: "@monthly"
 
-  - sql_file: SalesOrganizationsMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: SalesOrganizationsMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
   - sql_file: StorageLocationsMD.sql
     type: table
     table_setting:
       load_frequency: "@yearly"
 
-  - sql_file: ValuationAreasMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
-# Run every 10 minutes
+  # - sql_file: ValuationAreasMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
+# # Run every 10 minutes
   - sql_file: SalesOrders.sql
     type: table
     table_setting:
       load_frequency: "*/10 * * * *"
 
-  - sql_file: Regions_T005S.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: Regions_T005S.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: SDDocumentFlow.sql
-    type: view
+  # - sql_file: SDDocumentFlow.sql
+  #   type: view
 
-  - sql_file: UoMConversion.sql
-    type: script
+  # - sql_file: UoMConversion.sql
+  #   type: script
 
-  - sql_file: UoMConversionUtil.sql
-    type: view
+  # - sql_file: UoMConversionUtil.sql
+  #   type: view
 
-  - sql_file: ProductHierarchiesMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: ProductHierarchiesMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
   - sql_file: CustomersMD.sql
     type: table
@@ -164,125 +171,125 @@ bq_independent_objects:
     table_setting:
       load_frequency: "@yearly"
 
-  - sql_file: BillOfMaterialsMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: BillOfMaterialsMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: CurrenciesMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: CurrenciesMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: CurrencyConvUtil.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: CurrencyConvUtil.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: ProfitCentersMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: ProfitCentersMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: ProductionOrders.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: ProductionOrders.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: CountriesMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: CountriesMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
 
-  - sql_file: UoMMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: UoMMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: PurchaseDocuments_Flow.sql
-    type: view
+  # - sql_file: PurchaseDocuments_Flow.sql
+  #   type: view
 
-  - sql_file: DivisionsMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: DivisionsMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: PurchaseDocumentTypesMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: PurchaseDocumentTypesMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: MaterialMovementTypesMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: MaterialMovementTypesMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: ReasonForMovementTypesMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: ReasonForMovementTypesMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
-  - sql_file: SpecialStocksMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: SpecialStocksMD.sql
+    # type: table
+    # table_setting:
+    #   load_frequency: "@yearly"
 
   - sql_file: PurchasingOrganizationsMD.sql
     type: table
     table_setting:
       load_frequency: "@yearly"
 
-  - sql_file: BatchesMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: BatchesMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: MaterialPlantsMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@yearly"
+  # - sql_file: MaterialPlantsMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@yearly"
 
   - sql_file: PurchasingGroupsMD.sql
     type: table
     table_setting:
       load_frequency: "@yearly"
 
-  - sql_file: PricingConditions.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: PricingConditions.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: SalesOrderStatus.sql
-    type: table
-    table_setting:
-      load_frequency: "*/10 * * * *"
+  # - sql_file: SalesOrderStatus.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "*/10 * * * *"
 
-  - sql_file: POScheduleLine.sql
-    type: view
+  # - sql_file: POScheduleLine.sql
+  #   type: view
 
-  - sql_file: MaterialsBatchMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: MaterialsBatchMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
   - sql_file: StockCharacteristicsConfig.sql
     type: script
 
-  - sql_file: StockInHand.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: StockInHand.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: OneTouchOrder.sql
-    type: view
+  # - sql_file: OneTouchOrder.sql
+  #   type: view
 
 bq_dependent_objects:
 
-  - sql_file: BusinessPartnersMD.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: BusinessPartnersMD.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
   - sql_file: PurchaseDocuments.sql
     type: table
@@ -299,15 +306,15 @@ bq_dependent_objects:
     table_setting:
       load_frequency: "@daily"
 
-  - sql_file: MaterialsValuation.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: MaterialsValuation.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: MaterialsMovement.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: MaterialsMovement.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
   - sql_file: DueDateForCashDiscount1.sql
     type: script
@@ -330,95 +337,95 @@ bq_dependent_objects:
     table_setting:
       load_frequency: "@daily"
 
-  - sql_file: POOrderHistory.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: POOrderHistory.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: Deliveries.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: Deliveries.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: SalesOrders_V2.sql
-    type: table
-    table_setting:
-      load_frequency: "*/10 * * * *"
+  # - sql_file: SalesOrders_V2.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "*/10 * * * *"
 
-  - sql_file: SDStatus_Items.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: SDStatus_Items.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: DeliveriesStatus_PerSalesOrg.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: DeliveriesStatus_PerSalesOrg.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: SalesStatus_Items.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: SalesStatus_Items.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
   - sql_file: POSchedule.sql
     type: table
     table_setting:
       load_frequency: "@daily"
 
-  - sql_file: POFulfillment.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: POFulfillment.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: SalesFulfillment_perOrder.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: SalesFulfillment_perOrder.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: SalesFulfillment.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: SalesFulfillment.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: Stock_NonValuated.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: Stock_NonValuated.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: Stock_PerPlant.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: Stock_PerPlant.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: Stock_Unrestricted_vs_Sales.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: Stock_Unrestricted_vs_Sales.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: Billing.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: Billing.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: OrderToCash.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: OrderToCash.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: SalesOrderHeaderStatus.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: SalesOrderHeaderStatus.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: SalesOrderScheduleLine.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: SalesOrderScheduleLine.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: SalesOrderPartnerFunction.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: SalesOrderPartnerFunction.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
   - sql_file: VendorConfig.sql
     type: table
@@ -430,13 +437,13 @@ bq_dependent_objects:
     table_setting:
       load_frequency: "@daily"
 
-  - sql_file: SalesOrderPricing.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily"
+  # - sql_file: SalesOrderPricing.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily"
 
-  - sql_file: StockWeeklySnapshots.sql
-    type: script
+  # - sql_file: StockWeeklySnapshots.sql
+  #   type: script
 
   - sql_file: StockMonthlySnapshots.sql
     type: script
@@ -447,11 +454,11 @@ bq_dependent_objects:
       load_frequency: "@weekly" # Make sure it runs after StockMonthlySnapshots
       cluster_details: {columns: ["CompanyCode_BUKRS", "FiscalYear"]}
 
-  - sql_file: InventoryByPlant.sql
-    type: table
-    table_setting:
-      load_frequency: "@daily" # Make sure it runs after StockWeeklySnapshots
-      cluster_details: {columns: ["CompanyCode_BUKRS", "FiscalYear"]}
+  # - sql_file: InventoryByPlant.sql
+  #   type: table
+  #   table_setting:
+  #     load_frequency: "@daily" # Make sure it runs after StockWeeklySnapshots
+  #     cluster_details: {columns: ["CompanyCode_BUKRS", "FiscalYear"]}
 
 
   - sql_file: AccountsPayable.sql
@@ -484,3 +491,7 @@ bq_dependent_objects:
         time_grain: "day"
       }
       cluster_details: {columns: ["Company_BUKRS", "FiscalYear"]}
+  - sql_file: CostCenterAmountsHierarchy_SAMPLE.sql
+    type: view
+  - sql_file: ProfitCenterAmountsHierarchy_SAMPLE.sql
+    type: view
